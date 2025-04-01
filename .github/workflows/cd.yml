@@ -36,7 +36,7 @@ jobs:
 
     - name: Helm install or upgrade
       run: |
-        helm upgrade --install flask-app /flask-app/charts --namespace default --set image.repository=${{ secrets.DOCKER_USERNAME }}/flask-app,image.tag=latest
+        helm upgrade --install flask-app /flask-app/Chart.yaml --namespace default --set image.repository=${{ secrets.DOCKER_USERNAME }}/flask-app,image.tag=latest
 
     - name: Verify deployment
       run: |
