@@ -23,8 +23,10 @@ jobs:
       with:
         helm-version: v3.8.0
 
-    - name: Set up Kubeconfig
-      run: echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+    # Configurer kubeconfig pour l'authentification avec Azure
+    - name: Set up Kubeconfig from Azure
+      run: |
+        az aks get-credentials --resource-group plop --name 0-default --admin
 
     - name: Helm install or upgrade
       run: |
