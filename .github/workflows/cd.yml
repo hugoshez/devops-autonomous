@@ -23,7 +23,15 @@ jobs:
       with:
         helm-version: v3.8.0
 
-    # Configurer kubeconfig pour l'authentification avec Azure
+    # Authentifier avec Azure via Service Principal
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+    # Configurer kubeconfig pour accéder au cluster
     - name: Set up Kubeconfig from Azure
       run: |
         az aks get-credentials --resource-group plop --name 0-default --admin
@@ -35,4 +43,3 @@ jobs:
     - name: Verify deployment
       run: |
         kubectl get pods --namespace default
-
